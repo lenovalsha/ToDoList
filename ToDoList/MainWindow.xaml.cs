@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,14 @@ namespace ToDoList
     {
         private List<Status> statusList;
         private List<Importance> importanceList;
+        private List<Tasks> tasksList;
 
         public MainWindow()
         {
             InitializeComponent();
             CreateStatus();
             CreateImportance();
+            ReadTasks();
         }
         public void CreateStatus()
         {
@@ -69,15 +72,14 @@ namespace ToDoList
                 foreach (string imp in imporatances)
                 {
                     //Check if it exists
-                    bool exist = context.Importances.Any(s => s.Important == imp);
+                    bool exist = context.Importances.Any(s => s.Name == imp);
                     if (!exist)
                     {
-                        context.Importances.Add(new Importance() { Important = imp });
+                        context.Importances.Add(new Importance() { Name = imp });
                     }
                 }
                 context.SaveChanges();
             }
-            //lstStatus.ItemsSource = ;
             ReadImportance();
         }
         public void ReadImportance()
@@ -85,8 +87,39 @@ namespace ToDoList
             using (DataContext context = new DataContext())
             {
                 importanceList = context.Importances.ToList();
-                lstImportance.ItemsSource = importanceList;
+                lstImportance.ItemsSource = importanceList; //Will Delete later
+                cmbImportance.ItemsSource = importanceList;
+                cmbImportance.DisplayMemberPath = "Name";
             }
+        }
+        public void CreateTask()
+        {
+            using (DataContext context = new DataContext())
+            {
+                var date = DateTime.Now;
+                var task = txtTask.Text;
+
+                //will need to add error handling
+                context.Tasks.Add(new Tasks() { Date = date, Task = task, StatusId = 1, ImportanceId = cmbImportance.SelectedIndex + 1 });
+                context.SaveChanges();
+            }
+            ReadTasks();
+        }
+        public void ReadTasks()
+        {
+            using (DataContext context = new DataContext())
+            {
+                tasksList = context.Tasks
+                    .Include(t => t.Status)
+                    .Include(t => t.Importance).
+                    ToList();
+                lstTasks.ItemsSource = tasksList;
+            }
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTask();
         }
     }
 }

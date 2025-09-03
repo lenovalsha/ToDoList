@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoList"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ListView Name="lstStatus" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,531,279">
+        Title="MainWindow" Height="595" Width="894">
+    <Grid Margin="0,0,10,-6">
+        <ListView Name="lstStatus" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,615,346">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
@@ -15,7 +15,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="lstImportance" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="269,0,262,279">
+        <ListView x:Name="lstImportance" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="269,0,323,346">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
@@ -23,6 +23,23 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="68,516,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="txtTask" HorizontalAlignment="Left" Margin="170,519,0,0" TextWrapping="Wrap" Text="Task" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="cmbImportance" HorizontalAlignment="Left" Margin="295,517,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="442,519,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.01,-0.839" Click="btnCreate_Click"/>
+        <ListView Name="lstTasks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,239,233,173">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="Id" Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn x:Name="Date" Header="Date" Width="50" DisplayMemberBinding="{Binding Date}"/>
 
+                    <GridViewColumn x:Name="Task" Header="Task" Width="150" DisplayMemberBinding="{Binding Task}"/>
+                    <GridViewColumn x:Name="Importance" Header="Importance" Width="150" DisplayMemberBinding="{Binding Importance.Name}"/>
+                    <GridViewColumn x:Name="Status" Header="Status" Width="150" DisplayMemberBinding="{Binding Status.Name}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
+
 </Window>

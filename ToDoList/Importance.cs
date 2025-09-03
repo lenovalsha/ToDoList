@@ -8,7 +8,7 @@ namespace ToDoList
     {
         [Key]
         public  int Id { get; set; }
-        public string  Important { get; set; }
+        public string  Name { get; set; }
 
         //One Importance can be linked to many tasks
         public ICollection<Tasks> Tasks { get; set; }
