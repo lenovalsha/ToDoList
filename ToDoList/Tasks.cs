@@ -21,8 +21,6 @@ namespace ToDoList
         public int ImportanceId { get; set; }
 
 
-
-
         //ICollection is used as a many-to-many relationship
         //public ICollection<Importance> Importance { get; set; }
         //public ICollection< Status> Status { get; set; }

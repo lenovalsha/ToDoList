@@ -12,7 +12,7 @@ namespace ToDoList
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)//automatically calles when it needs to know how to connect to your database
         {
                            //use SQLite as the database ("the name of the database file")
-            optionsBuilder.UseSqlite("Data source = TodoList.db ");
+            optionsBuilder.UseSqlite("Data source = Leila'sTodoList.db ");
             
         }
 
