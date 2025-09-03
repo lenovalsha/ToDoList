@@ -15,6 +15,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <ListView x:Name="lstImportance" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="269,0,262,279">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Status" Width="300" DisplayMemberBinding="{Binding Important}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

@@ -21,10 +21,13 @@ namespace ToDoList
     public partial class MainWindow : Window
     {
         private List<Status> statusList;
+        private List<Importance> importanceList;
+
         public MainWindow()
         {
             InitializeComponent();
             CreateStatus();
+            CreateImportance();
         }
         public void CreateStatus()
         {
@@ -45,7 +48,6 @@ namespace ToDoList
                 }
                 context.SaveChanges();
             }
-            //lstStatus.ItemsSource = ;
             ReadStatus();
         }
         public void ReadStatus()
@@ -67,23 +69,23 @@ namespace ToDoList
                 foreach (string imp in imporatances)
                 {
                     //Check if it exists
-                    bool exist = context.Statuses.Any(s => s.Name == imp);
+                    bool exist = context.Importances.Any(s => s.Important == imp);
                     if (!exist)
                     {
-                        context.Statuses.Add(new Status() { Name = imp });
+                        context.Importances.Add(new Importance() { Important = imp });
                     }
                 }
                 context.SaveChanges();
             }
             //lstStatus.ItemsSource = ;
-            ReadStatus();
+            ReadImportance();
         }
         public void ReadImportance()
         {
             using (DataContext context = new DataContext())
             {
-                statusList = context.Statuses.ToList();
-                lstStatus.ItemsSource = statusList;
+                importanceList = context.Importances.ToList();
+                lstImportance.ItemsSource = importanceList;
             }
         }
     }
