@@ -9,7 +9,7 @@ namespace ToDoList
     {
         [Key]
         public int Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? DueDate { get; set; }
         public string Task { get; set; }
 
         //Foreign key for status

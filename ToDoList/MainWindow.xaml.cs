@@ -21,7 +21,6 @@ namespace ToDoList
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Status> statusList;
         private List<Importance> importanceList;
         private List<Tasks> tasksList;
 
@@ -51,15 +50,6 @@ namespace ToDoList
                 }
                 context.SaveChanges();
             }
-            ReadStatus();
-        }
-        public void ReadStatus()
-        {
-            using (DataContext context = new DataContext())
-            {
-                statusList = context.Statuses.ToList();
-                lstStatus.ItemsSource = statusList;
-            }
         }
         public void CreateImportance()
         {
@@ -87,20 +77,46 @@ namespace ToDoList
             using (DataContext context = new DataContext())
             {
                 importanceList = context.Importances.ToList();
-                lstImportance.ItemsSource = importanceList; //Will Delete later
                 cmbImportance.ItemsSource = importanceList;
                 cmbImportance.DisplayMemberPath = "Name";
             }
         }
+        public void SelectedTask()
+        {
+            using (DataContext context = new DataContext())
+            {
+                if (lstTasks.SelectedItem != null)
+                {
+                    Tasks selectedTask = lstTasks.SelectedItem as Tasks;//Will select the task ansd convert it to Task type so we can access the ID
+                    txtTask.Text = selectedTask.Task;
+                    cmbImportance.SelectedIndex = selectedTask.ImportanceId - 1;//will need to find a way to fix this later
+                    dpDate.SelectedDate = selectedTask.DueDate;
+                    if (selectedTask.StatusId == 1)//not started
+                    {
+                        btnStartComplete.Visibility = Visibility.Visible;
+                        btnStartComplete.Content = "Start";
+
+                    }
+                    else if (selectedTask.StatusId == 2)
+                    {
+                        btnStartComplete.Content = "Complete";
+                        
+                    }
+                    btnUpdate.IsEnabled = true;
+                    btnDelete.IsEnabled = true;
+                }
+            }
+        }
+        #region CRUD
         public void CreateTask()
         {
             using (DataContext context = new DataContext())
             {
-                var date = DateTime.Now;
+                var date = dpDate.SelectedDate;
                 var task = txtTask.Text;
 
                 //will need to add error handling
-                context.Tasks.Add(new Tasks() { Date = date, Task = task, StatusId = 1, ImportanceId = cmbImportance.SelectedIndex + 1 });
+                context.Tasks.Add(new Tasks() { DueDate = date, Task = task, StatusId = 1, ImportanceId = cmbImportance.SelectedIndex + 1 });
                 context.SaveChanges();
             }
             ReadTasks();
@@ -118,28 +134,13 @@ namespace ToDoList
                 lstTasks.ItemsSource = tasksList;
             }
         }
-        public void SelectedTask()
-        {
-            using (DataContext context = new DataContext())
-            {
-                if(lstTasks.SelectedItem != null)
-                {
-                Tasks selectedTask = lstTasks.SelectedItem as Tasks;//Will select the task ansd convert it to Task type so we can access the ID
-                txtTask.Text = selectedTask.Task;
-                cmbImportance.SelectedIndex = selectedTask.ImportanceId-1 ;//will need to find a way to fix this later
-                dpDate.SelectedDate = selectedTask.Date;
-                btnUpdate.IsEnabled = true;
-                btnDelete.IsEnabled = true;
-                }
-            }
-        }
         public void UpdateTask()
         {
             using (DataContext context = new DataContext())
             {
                 Tasks selectedTask = lstTasks.SelectedItem as Tasks;
                 var updTask = txtTask.Text;
-                var updImportance = cmbImportance.SelectedIndex+1;
+                var updImportance = cmbImportance.SelectedIndex + 1;
                 if (selectedTask != null)
                 {
                     Tasks task = context.Tasks.Find(selectedTask.Id);
@@ -164,7 +165,35 @@ namespace ToDoList
             }
             ReadTasks();
         }
+        #endregion
+        #region StartCompleteTasks
+        public void StartComplete()
+        {
+            using (DataContext context = new DataContext())
+            {
+                Tasks selectedTask = lstTasks.SelectedItem as Tasks;
+                Tasks task = context.Tasks.Find(selectedTask.Id);
 
+                if (lstTasks.SelectedItem != null)
+                {
+
+                    if (task.StatusId == 1)//has not started yet
+                    {
+                        task.StatusId = 2;//start it
+                    }
+                    else if (task.StatusId == 2)//if its already in progress
+                    {
+                        task.StatusId = 3;//complete it
+                    }
+                }
+                context.SaveChanges();
+            }
+            ReadTasks();
+        }
+
+        #endregion
+
+        #region Buttons
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             CreateTask();
@@ -188,5 +217,11 @@ namespace ToDoList
         {
             DeleteTask();
         }
+
+        private void btnStartComplete_Click(object sender, RoutedEventArgs e)
+        {
+            StartComplete();
+        }
+        #endregion
     }
 }

@@ -7,32 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="595" Width="894">
     <Grid Margin="0,0,10,-6">
-        <ListView Name="lstStatus" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,615,346">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Status" Width="300" DisplayMemberBinding="{Binding Name}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView x:Name="lstImportance" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="269,0,323,346" SelectionChanged="lstImportance_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Status" Width="300" DisplayMemberBinding="{Binding Important}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="63,515,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtTask" HorizontalAlignment="Left" Margin="170,519,0,0" TextWrapping="Wrap" Text="Task" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="cmbImportance" HorizontalAlignment="Left" Margin="295,517,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="442,519,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.01,-0.839" Click="btnCreate_Click"/>
-        <ListView Name="lstTasks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="27,239,233,122" SelectionChanged="lstTasks_SelectionChanged">
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="306,245,0,0" VerticalAlignment="Top" Height="22"/>
+        <TextBox Name="txtTask" HorizontalAlignment="Left" Margin="10,245,0,0" TextWrapping="Wrap" Text="Task" VerticalAlignment="Top" Width="291" Height="22"/>
+        <ComboBox Name="cmbImportance" HorizontalAlignment="Left" Margin="413,245,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.01,-0.839" Click="btnCreate_Click" Width="191"/>
+        <ListView Name="lstTasks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,10,250,351" SelectionChanged="lstTasks_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="Id" Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn x:Name="Date" Header="Date" Width="50" DisplayMemberBinding="{Binding Date}"/>
                     <GridViewColumn x:Name="Task" Header="Task" Width="150" DisplayMemberBinding="{Binding Task}"/>
+                    <GridViewColumn x:Name="DueDate" Header="Due Date" Width="50" DisplayMemberBinding="{Binding DueDate}"/>
                     <GridViewColumn x:Name="Importance" Header="Importance" Width="150" DisplayMemberBinding="{Binding Importance.Name}"/>
                     <GridViewColumn x:Name="Status" Header="Status" Width="150" DisplayMemberBinding="{Binding Status.Name}"/>
                     <!--<GridViewColumn x:Name="CompletedDate" Header="CompletedDate" Width="150"   DisplayMemberBinding="{Binding CompletedDate}"/>-->
@@ -40,8 +24,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="27,468,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnUpdate_Click"/>
-        <Button Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="611,524,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnDelete_Click"/>
+        <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left" Margin="206,273,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnUpdate_Click" RenderTransformOrigin="0.117,2.858" Width="202"/>
+        <Button Name="btnDelete" Content="Delete"  HorizontalAlignment="Left" Margin="413,273,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnDelete_Click" Width="221"/>
+        <Button Name="btnStartComplete" Content="Start"  HorizontalAlignment="Left" Margin="639,35,0,0" VerticalAlignment="Top" Width="60" Click="btnStartComplete_Click"/>
     </Grid>
 
 </Window>
