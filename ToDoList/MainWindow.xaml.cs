@@ -104,6 +104,8 @@ namespace ToDoList
                 context.SaveChanges();
             }
             ReadTasks();
+            btnUpdate.IsEnabled = false;
+
         }
         public void ReadTasks()
         {
@@ -116,10 +118,75 @@ namespace ToDoList
                 lstTasks.ItemsSource = tasksList;
             }
         }
+        public void SelectedTask()
+        {
+            using (DataContext context = new DataContext())
+            {
+                if(lstTasks.SelectedItem != null)
+                {
+                Tasks selectedTask = lstTasks.SelectedItem as Tasks;//Will select the task ansd convert it to Task type so we can access the ID
+                txtTask.Text = selectedTask.Task;
+                cmbImportance.SelectedIndex = selectedTask.ImportanceId-1 ;//will need to find a way to fix this later
+                dpDate.SelectedDate = selectedTask.Date;
+                btnUpdate.IsEnabled = true;
+                btnDelete.IsEnabled = true;
+                }
+            }
+        }
+        public void UpdateTask()
+        {
+            using (DataContext context = new DataContext())
+            {
+                Tasks selectedTask = lstTasks.SelectedItem as Tasks;
+                var updTask = txtTask.Text;
+                var updImportance = cmbImportance.SelectedIndex+1;
+                if (selectedTask != null)
+                {
+                    Tasks task = context.Tasks.Find(selectedTask.Id);
+                    task.Task = updTask;
+                    task.ImportanceId = updImportance;
+                    context.SaveChanges();
+                }
+            }
+            ReadTasks();
+            btnUpdate.IsEnabled = false;
+        }
+        public void DeleteTask()
+        {
+            using (DataContext context = new DataContext())
+            {
+                Tasks selectedTask = lstTasks.SelectedItem as Tasks;
+
+                Tasks task = context.Tasks.Find(selectedTask.Id);
+
+                context.Tasks.Remove(task);
+                context.SaveChanges();
+            }
+            ReadTasks();
+        }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             CreateTask();
+        }
+
+        private void lstImportance_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private void lstTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedTask();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTask();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteTask();
         }
     }
 }

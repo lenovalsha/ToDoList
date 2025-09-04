@@ -20,6 +20,8 @@ namespace ToDoList
         public Importance Importance { get; set; }
         public int ImportanceId { get; set; }
 
+        public DateTime CompletedDate { get; set; }
+
 
         //ICollection is used as a many-to-many relationship
         //public ICollection<Importance> Importance { get; set; }
