@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="595" Width="894">
     <Grid Margin="0,0,10,-6">
-        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="306,245,0,0" VerticalAlignment="Top" Height="22"/>
-        <TextBox Name="txtTask" HorizontalAlignment="Left" Margin="10,245,0,0" TextWrapping="Wrap" Text="Task" VerticalAlignment="Top" Width="291" Height="22"/>
-        <ComboBox Name="cmbImportance" HorizontalAlignment="Left" Margin="413,245,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.01,-0.839" Click="btnCreate_Click" Width="191"/>
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="363,245,0,0" VerticalAlignment="Top" Height="29" Width="121"/>
+        <TextBox Name="txtTask" HorizontalAlignment="Left" Margin="10,245,0,0" TextWrapping="Wrap" Text="Task" VerticalAlignment="Top" Width="347" Height="29"/>
+        <ComboBox Name="cmbImportance" HorizontalAlignment="Left" Margin="491,245,0,0" VerticalAlignment="Top" Width="143" Height="29"/>
+        <Button Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="10,293,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.01,-0.839" Click="btnCreate_Click" Width="191"/>
         <ListView Name="lstTasks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,10,250,351" SelectionChanged="lstTasks_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -24,8 +24,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left" Margin="206,273,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnUpdate_Click" RenderTransformOrigin="0.117,2.858" Width="202"/>
-        <Button Name="btnDelete" Content="Delete"  HorizontalAlignment="Left" Margin="413,273,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnDelete_Click" Width="221"/>
+        <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left" Margin="206,293,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnUpdate_Click" RenderTransformOrigin="0.117,2.858" Width="202"/>
+        <Button Name="btnDelete" Content="Delete"  HorizontalAlignment="Left" Margin="413,293,0,0" VerticalAlignment="Top" IsEnabled="False" Click="btnDelete_Click" Width="221"/>
         <Button Name="btnStartComplete" Content="Start"  HorizontalAlignment="Left" Margin="639,35,0,0" VerticalAlignment="Top" Width="60" Click="btnStartComplete_Click"/>
     </Grid>
 

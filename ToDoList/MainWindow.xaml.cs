@@ -100,7 +100,7 @@ namespace ToDoList
                     else if (selectedTask.StatusId == 2)
                     {
                         btnStartComplete.Content = "Complete";
-                        
+
                     }
                     btnUpdate.IsEnabled = true;
                     btnDelete.IsEnabled = true;
@@ -114,10 +114,12 @@ namespace ToDoList
             {
                 var date = dpDate.SelectedDate;
                 var task = txtTask.Text;
-
-                //will need to add error handling
-                context.Tasks.Add(new Tasks() { DueDate = date, Task = task, StatusId = 1, ImportanceId = cmbImportance.SelectedIndex + 1 });
-                context.SaveChanges();
+                if (task != string.Empty || date != null || cmbImportance.SelectedItem != null)
+                {
+                    //will need to add error handling
+                    context.Tasks.Add(new Tasks() { DueDate = date, Task = task, StatusId = 1, ImportanceId = cmbImportance.SelectedIndex + 1 });
+                    context.SaveChanges();
+                }
             }
             ReadTasks();
             btnUpdate.IsEnabled = false;
@@ -157,11 +159,13 @@ namespace ToDoList
             using (DataContext context = new DataContext())
             {
                 Tasks selectedTask = lstTasks.SelectedItem as Tasks;
+                if (selectedTask != null)
+                {
+                    Tasks task = context.Tasks.Find(selectedTask.Id);
 
-                Tasks task = context.Tasks.Find(selectedTask.Id);
-
-                context.Tasks.Remove(task);
-                context.SaveChanges();
+                    context.Tasks.Remove(task);
+                    context.SaveChanges();
+                }
             }
             ReadTasks();
         }
@@ -184,6 +188,7 @@ namespace ToDoList
                     else if (task.StatusId == 2)//if its already in progress
                     {
                         task.StatusId = 3;//complete it
+                        task.CompletedDate = DateTime.Now;
                     }
                 }
                 context.SaveChanges();
