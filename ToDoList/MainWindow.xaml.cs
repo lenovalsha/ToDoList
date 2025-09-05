@@ -95,12 +95,10 @@ namespace ToDoList
                     {
                         btnStartComplete.Visibility = Visibility.Visible;
                         btnStartComplete.Content = "Start";
-
                     }
                     else if (selectedTask.StatusId == 2)
                     {
                         btnStartComplete.Content = "Complete";
-
                     }
                     btnUpdate.IsEnabled = true;
                     btnDelete.IsEnabled = true;
